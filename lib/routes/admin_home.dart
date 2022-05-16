@@ -1,56 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:barbershop_app/api_keys/user_model.dart';
+import 'package:barbershop_app/api_keys/api_services.dart';
 
-class AdminHome extends StatelessWidget {
+class AdminHome extends StatefulWidget {
   const AdminHome({Key? key}) : super(key: key);
 
+  @override
+  State<AdminHome> createState() => _AdminHome();
+}
+
+class _AdminHome extends State<AdminHome> {
+  late List<Welcome>? _userModel = [];
+  @override
+  void initState(){
+    super.initState();
+    _getData();
+  }
+
+  void _getData() async {
+    _userModel = (await ApiService().getUsers())!;
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Fisrt Route'),
+        title: const Text('Rota teste'),
       ),
-      body: const Content(),
-    );
-  }
-}
+      body: _userModel == null || _userModel!.isEmpty
+      ? const Center(
+        child: CircularProgressIndicator(),
+      ): ListView.builder(
+        itemCount: _userModel!.length,
+        itemBuilder: (BuildContext context, int index) {  
+          return Card(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(_userModel![index].id.toString()),
+                    Text(_userModel![index].username.toString()),
+                  ],
+                ),
 
-class Content extends StatefulWidget {
-  const Content({Key? key}) : super(key: key);
+                const SizedBox(
+                  height: 20.0,
+                ),
 
-  @override
-  State<Content> createState() => _ContentState();
-}
-
-class _ContentState extends State<Content> {
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        const Center(
-          child: SizedBox(
-          height: 200.0,
-          width: 200.0,
-          child: Card(
-              child: Align(
-                alignment: Alignment.center,
-                child: Text('API TEXT'),
-              ),
-              elevation: 5.0,
-            ),
-          ),
-        ),
-
-        Align(  
-          alignment: const Alignment(0.0, 0.6),
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Voltar'),
-          ),
-        )
-      ],  
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(_userModel![index].email),
+                    Text(_userModel![index].website),
+                  ],
+                ),
+              ],
+            )
+          );
+        }
+      )
     );
   }
 }
