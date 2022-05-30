@@ -19,7 +19,6 @@ class _AdminHome extends State<AdminHome> {
 
   void _getData() async {
     _userModel = (await ApiService().getUsers())!;
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class _AdminHome extends State<AdminHome> {
       ),
       body: _userModel == null || _userModel!.isEmpty
       ? const Center(
-        child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(),
       ): ListView.builder(
         itemCount: _userModel!.length,
         itemBuilder: (BuildContext context, int index) {  
@@ -46,14 +45,6 @@ class _AdminHome extends State<AdminHome> {
 
                 const SizedBox(
                   height: 20.0,
-                ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(_userModel![index].email),
-                    Text(_userModel![index].website),
-                  ],
                 ),
               ],
             )
