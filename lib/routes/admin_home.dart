@@ -1,3 +1,4 @@
+import 'package:barbershop_app/widgets/wellcome.dart';
 import 'package:flutter/material.dart';
 import 'package:barbershop_app/api_keys/user_model.dart';
 import 'package:barbershop_app/api_keys/api_services.dart';
@@ -12,7 +13,7 @@ class AdminHome extends StatefulWidget {
 class _AdminHome extends State<AdminHome> {
   late List<Welcome>? _userModel = [];
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _getData();
   }
@@ -20,37 +21,38 @@ class _AdminHome extends State<AdminHome> {
   void _getData() async {
     _userModel = (await ApiService().getUsers())!;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Rota teste'),
+        leading: const Icon(Icons.account_circle_outlined, color: Colors.black45,),
+        leadingWidth: 60,
+        title: const Text('Olá Lucas', 
+          style: TextStyle(color: Colors.black45, fontSize: 12)
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
-      body: _userModel == null || _userModel!.isEmpty
-      ? const Center(
-          child: CircularProgressIndicator(),
-      ): ListView.builder(
-        itemCount: _userModel!.length,
-        itemBuilder: (BuildContext context, int index) {  
-          return Card(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(_userModel![index].id.toString()),
-                    Text(_userModel![index].username.toString()),
-                  ],
-                ),
+      body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text(
+              'home page',
+              textAlign: TextAlign.center,
+            ),
+            TextButton(
+              onPressed: () async{
+                bool log = await ApiLogout().logout(); 
 
-                const SizedBox(
-                  height: 20.0,
-                ),
-              ],
+                if(log){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Wellcome()));
+                }
+              },
+              child: const Text('Sair'),
             )
-          );
-        }
-      )
+          ]),
     );
   }
 }

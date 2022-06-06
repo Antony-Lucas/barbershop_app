@@ -56,5 +56,5 @@ Color shadeColor(Color color, double factor) => Color.fromRGBO(
 1);
 
 class Palette {
-  static const Color primary = Color(0xFF7052CB);
+  static const Color primary = Color.fromARGB(70, 119, 119, 119);
 }

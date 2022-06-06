@@ -33,19 +33,17 @@ class _WellcomeState extends State<Wellcome> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator()
-      ),
+    return Scaffold(
+      body: Container(),
     );
   }
 
   Future<bool> verificarToken() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
-    if(pref.getString('access_token') != null){
-      return true;
-    } else{
+    if(pref.getString('access_token') == null){
       return false;
+    } else{
+      return true;
     }
   }
 }
