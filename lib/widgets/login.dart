@@ -1,6 +1,6 @@
 import 'package:barbershop_app/api_keys/api_services.dart';
 import 'package:flutter/material.dart';
-import 'package:barbershop_app/routes/admin_home.dart';
+import 'package:barbershop_app/routes/admin/admin_home.dart';
 
 class Content extends StatefulWidget {
   const Content({Key? key}) : super(key: key);
@@ -31,7 +31,7 @@ class _ContentState extends State<Content> {
       body: Form(
         key: _formkey,
         child: Center(
-            child: Align(
+          child: Align(
           alignment: Alignment.topCenter,
           child: SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
@@ -123,8 +123,7 @@ class _ContentState extends State<Content> {
                                 isLoading = false;
                               });
                               myPass.clear();
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             }
                           }
                         },
