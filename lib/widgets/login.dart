@@ -51,7 +51,7 @@ class _ContentState extends State<Content> {
                         fillColor: Color.fromARGB(17, 0, 0, 0),
                         filled: true,
                         contentPadding:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                        EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                         border: OutlineInputBorder(),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black12),

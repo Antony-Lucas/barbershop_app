@@ -17,13 +17,6 @@ class _ProfileState extends State<Profile> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: const BackButton(color: Colors.black45),
-        actions: <Widget>[
-          IconButton(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            onPressed: (){Navigator.pop(context);}, 
-            icon: const Icon(Icons.notifications_outlined, color: Colors.black45, size: 30,)
-          )
-        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

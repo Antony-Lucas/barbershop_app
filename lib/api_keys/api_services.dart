@@ -17,7 +17,7 @@ class ApiLogin {
     );
     print(response.statusCode);
     if(response.statusCode == 200 || response.statusCode == 201){
-      await prefs.setString('Access_token', "${jsonDecode(response.body)['access_token']}");
+      await prefs.setString('access_token', "${jsonDecode(response.body)['access_token']}");
       print(jsonDecode(response.body)['access_token']);
       return true;
     }else{
