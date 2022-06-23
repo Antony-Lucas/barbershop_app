@@ -15,6 +15,7 @@ class Login extends StatelessWidget {
       title: 'login page',
       debugShowCheckedModeBanner: false,
       home: const Wellcome(),
+      darkTheme: ThemeData.dark(),
       theme: ThemeData(
         primarySwatch: generateMaterialColor(Palette.primary),
       ),
@@ -56,5 +57,5 @@ Color shadeColor(Color color, double factor) => Color.fromRGBO(
 1);
 
 class Palette {
-  static const Color primary = Color.fromARGB(70, 119, 119, 119);
+  static const Color primary = Color.fromARGB(150, 150, 150 ,150);
 }

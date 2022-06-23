@@ -27,7 +27,7 @@ class _ContentState extends State<Content> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromARGB(18, 18, 18, 1),
       body: Form(
         key: _formkey,
         child: Center(
@@ -42,11 +42,12 @@ class _ContentState extends State<Content> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15),
                     child: TextFormField(
+                      style: const TextStyle(color: Color.fromARGB(200, 200, 200, 200)),
                       decoration: const InputDecoration(
                         hintText: 'Usuário',
                         hintStyle: TextStyle(
                           fontSize: 14.0,
-                          color: Colors.black45,
+                          color: Color.fromARGB(153, 153, 153, 153),
                         ),
                         fillColor: Color.fromARGB(17, 0, 0, 0),
                         filled: true,
@@ -54,7 +55,7 @@ class _ContentState extends State<Content> {
                         EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                         border: OutlineInputBorder(),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black12),
+                          borderSide: BorderSide(color:Color.fromARGB(153, 153, 153, 153)),
                         ),
                       ),
                       controller: myLogin,
@@ -68,11 +69,12 @@ class _ContentState extends State<Content> {
                     ),
                   ),
                   TextFormField(
+                    style: const TextStyle(color: Color.fromARGB(200, 200, 200, 200)),
                     decoration: const InputDecoration(
                       hintText: 'senha',
                       hintStyle: TextStyle(
                         fontSize: 14.0,
-                        color: Colors.black45,
+                        color:Color.fromARGB(153, 153, 153, 153),
                       ),
                       fillColor: Color.fromARGB(17, 0, 0, 0),
                       filled: true,
@@ -80,7 +82,7 @@ class _ContentState extends State<Content> {
                           EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                       border: OutlineInputBorder(),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black12),
+                        borderSide: BorderSide(color:Color.fromARGB(153, 153, 153, 153)),
                       ),
                     ),
                     controller: myPass,
@@ -140,7 +142,7 @@ class _ContentState extends State<Content> {
                               )
                             : const Text('Login'),
                         style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 72, 149, 239),
+                          primary:const Color(0xFFD4BA53),
                           padding: const EdgeInsets.symmetric(vertical: 15),
                         ),
                       ))

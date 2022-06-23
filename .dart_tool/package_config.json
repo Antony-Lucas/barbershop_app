@@ -98,6 +98,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.4",
       "packageUri": "lib/",
@@ -218,6 +224,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "simple_gesture_detector",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/simple_gesture_detector-0.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///C:/src/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -244,6 +256,12 @@
     {
       "name": "string_scanner",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "table_calendar",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/table_calendar-3.0.6",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -290,7 +308,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-06-17T11:47:13.554107Z",
+  "generated": "2022-06-23T19:45:39.700522Z",
   "generator": "pub",
   "generatorVersion": "2.17.3"
 }
