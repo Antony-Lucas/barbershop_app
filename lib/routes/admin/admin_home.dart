@@ -127,7 +127,7 @@ class _ResumeState extends State<Resume> {
                   Container(
                       padding: const EdgeInsets.only(top: 15),
                       child: const Text(
-                        r"R$ 150",
+                        r"R$ 150,00",
                         style: TextStyle(
                             color: Color(0xDEDEDEDE),
                             fontWeight: FontWeight.bold),
@@ -136,7 +136,7 @@ class _ResumeState extends State<Resume> {
                       child: const Text(
                     "5",
                     style: TextStyle(
-                        color: Color(0xFFD4BA53),
+                        color: Color(0xDEDEDEDE),
                         fontWeight: FontWeight.bold,
                         fontSize: 40),
                   ))
@@ -178,7 +178,7 @@ class _ResumeState extends State<Resume> {
                       child: const Text(
                     "32",
                     style: TextStyle(
-                        color: Color(0xFFD4BA53),
+                        color: Color(0xDEDEDEDE),
                         fontWeight: FontWeight.bold,
                         fontSize: 40),
                   ))

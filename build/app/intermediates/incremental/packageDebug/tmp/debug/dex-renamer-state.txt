@@ -1,4 +1,4 @@
-#Thu Jun 23 14:55:12 BRT 2022
+#Fri Jun 24 16:26:11 BRT 2022
 base.0=C\:\\projects\\barbershop_app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
