@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:barbershop_app/routes/admin/admin_schedule.dart';
 import 'package:barbershop_app/routes/admin/profile_admin.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +20,7 @@ class _AdminHome extends State<AdminHome> {
         leading: IconButton(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           icon: const Icon(
-            Icons.account_circle_rounded,
+            Icons.person,
             color: Color.fromARGB(222, 222, 222, 222),
             size: 35,
           ),
@@ -38,15 +39,6 @@ class _AdminHome extends State<AdminHome> {
               ),
               onPressed: () {}),
         ],
-        title: const Align(
-          alignment: Alignment(-1.1, 0),
-          child: Text('Cap Vip',
-              style: TextStyle(
-                color: Color.fromARGB(222, 222, 222, 222),
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              )),
-        ),
         backgroundColor: const Color(0xFF121212),
         elevation: 0,
       ),
@@ -73,10 +65,10 @@ class _BodyDashState extends State<BodyDash> {
             Container(
                 alignment: Alignment.centerLeft,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    const EdgeInsets.only(top: 30, left: 20, bottom: 20),
                 child: const Text(
                   "Atividade",
-                  style: TextStyle(color: Color.fromARGB(153, 153, 153, 153)),
+                  style: TextStyle(color: Color.fromARGB(222, 222, 222, 222), fontSize: 15, fontWeight: FontWeight.bold),
                 ))
           ],
         ),
@@ -84,7 +76,6 @@ class _BodyDashState extends State<BodyDash> {
         const CircularMenu(),
         const AddAction(),
         const Calendar(),
-        //const WeekDays(),
       ]),
     );
   }
@@ -219,8 +210,9 @@ class _CircularMenuState extends State<CircularMenu> {
                       color: Color.fromARGB(222, 222, 222, 222)),
                   onPressed: () {
                     Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (context) => const Schedule()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Schedule()));
                   },
                 ),
                 decoration: BoxDecoration(
@@ -266,8 +258,8 @@ class _CircularMenuState extends State<CircularMenu> {
                 height: 60,
                 child: IconButton(
                   icon: const Icon(Icons.groups_outlined,
-                      color: Color.fromARGB(222, 222, 222, 222)),
-                  onPressed: () {},
+                    color: Color.fromARGB(222, 222, 222, 222)),
+                    onPressed: () {},
                 ),
                 decoration: BoxDecoration(
                   color: const Color.fromRGBO(35, 36, 42, 1),
@@ -385,25 +377,26 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 25),
+      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            "Agendamentos",
-            style: TextStyle(color: Colors.black45),
+          Container(
+            padding: const EdgeInsets.only(top: 15, bottom: 20),
+            child: Column(
+              children: const <Widget>[
+                WeekDays(),
+              ],
+            )
           ),
-          Row(
-            children: const <Widget>[],
-          )
         ],
       ),
     );
   }
 }
 
-/*class WeekDays extends StatefulWidget {
+class WeekDays extends StatefulWidget {
   const WeekDays({Key? key}) : super(key: key);
 
   @override
@@ -411,16 +404,76 @@ class _CalendarState extends State<Calendar> {
 }
 
 class _WeekDaysState extends State<WeekDays> {
+  Map<DateTime, List> _eventList = {};
+
+  int getHashCode(DateTime key) {
+    return key.day * 1000000 + key.month * 10000 + key.year;
+  }
+
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+  CalendarFormat _calendarFormat = CalendarFormat.week;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        TableCalendar(
-          focusedDay: DateTime.now(), 
-          firstDay: DateTime.utc(2010, 01, 10), 
-          lastDay: DateTime.utc(2030, 01, 01),
-        )
-      ],
+    initializeDateFormatting('pt');
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TableCalendar(
+            locale: 'pt_BR',
+            focusedDay: _focusedDay,
+            firstDay: DateTime.utc(2010, 01, 01),
+            lastDay: DateTime.utc(2030, 01, 01),
+            calendarFormat: _calendarFormat,
+            startingDayOfWeek: StartingDayOfWeek.monday,
+            availableCalendarFormats: const{
+              CalendarFormat.week: 'Week',
+            },
+
+            onFormatChanged: (format) {
+              setState(() {
+                _calendarFormat = format;
+              });
+            },
+
+            headerStyle: const HeaderStyle(
+              formatButtonVisible: false,
+              titleCentered: true,
+              leftChevronVisible: false,
+              rightChevronVisible: false,
+            ),
+            headerVisible:  false,
+
+            calendarStyle: const CalendarStyle(
+              defaultTextStyle: TextStyle(color: Colors.white),
+              todayDecoration: BoxDecoration(
+                color: Color(0xFFD4BA53),
+                shape: BoxShape.circle,
+              ),
+              todayTextStyle: TextStyle(color: Colors.black),
+              selectedDecoration: BoxDecoration(
+                color: Color(0xFFDEC978),
+                shape: BoxShape.circle,
+              ),
+              selectedTextStyle: TextStyle(color: Colors.black)
+            ),
+
+            selectedDayPredicate: (day) {
+              return isSameDay(_selectedDay, day);
+            },
+            onDaySelected: (selectedDay, focusedDay) {
+              setState(() {
+                _selectedDay = selectedDay;
+                _focusedDay = focusedDay;
+              });
+            },
+            onPageChanged: (focusedDay) {
+              _focusedDay = focusedDay;
+            },
+          )
+        ],
+      ),
     );
   }
-}*/
+}

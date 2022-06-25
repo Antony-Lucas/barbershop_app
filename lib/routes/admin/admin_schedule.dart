@@ -46,7 +46,7 @@ class _CalendarState extends State<Calendar> {
 
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
-  CalendarFormat _calendarFormat = CalendarFormat.week;
+  CalendarFormat _calendarFormat = CalendarFormat.month;
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('pt');
@@ -61,6 +61,9 @@ class _CalendarState extends State<Calendar> {
             lastDay: DateTime.utc(2030, 01, 01),
             calendarFormat: _calendarFormat,
             startingDayOfWeek: StartingDayOfWeek.monday,
+            availableCalendarFormats: const{
+              CalendarFormat.month: 'Month',
+            },
             onFormatChanged: (format) {
               setState(() {
                 _calendarFormat = format;
@@ -69,12 +72,10 @@ class _CalendarState extends State<Calendar> {
             headerStyle: const HeaderStyle(
               formatButtonVisible: false,
               titleCentered: true,
-              leftChevronVisible: false,
-              rightChevronVisible: false,
+           
               headerPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               titleTextStyle: TextStyle(color: Colors.black45, fontSize: 20)
             ),
-            //headerVisible:  false,
 
             selectedDayPredicate: (day) {
               return isSameDay(_selectedDay, day);
