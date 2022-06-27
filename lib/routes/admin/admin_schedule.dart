@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,8 +39,6 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
-  Map<DateTime, List> _eventList = {};
-
   int getHashCode(DateTime key) {
     return key.day * 1000000 + key.month * 10000 + key.year;
   }
@@ -47,9 +46,43 @@ class _CalendarState extends State<Calendar> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   CalendarFormat _calendarFormat = CalendarFormat.month;
+  Map<DateTime, List> _eventList = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDay = _focusedDay;
+    _eventList = {
+      DateTime.now().subtract(const Duration(days: 2)): ['Isac daocu', 'Event B1'],
+      DateTime.now(): ['Event A2', 'Event B2', 'Event C1', 'Event D1'],
+      DateTime.now().add(const Duration(days: 1)):[
+        'Event A2',
+        'Event B2',
+        'Event C2',
+        'Event D2',
+      ],
+      DateTime.now().add(const Duration(days: 3)) : (['Event A4', 'Event A5', 'Event B4',]).toList(),
+      DateTime.now().add(const Duration(days: 7)):[
+        'Event A6',
+        'Event B5',
+        'Event C3',
+      ],
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _events = LinkedHashMap<DateTime, List>(
+      equals: isSameDay,
+      hashCode: getHashCode,
+    )..addAll(_eventList);
+
+    List getEventForDay(DateTime day){
+      return _events[day] ?? [];
+    }
+
     initializeDateFormatting('pt');
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +94,7 @@ class _CalendarState extends State<Calendar> {
             lastDay: DateTime.utc(2030, 01, 01),
             calendarFormat: _calendarFormat,
             startingDayOfWeek: StartingDayOfWeek.monday,
-            availableCalendarFormats: const{
+            availableCalendarFormats: const {
               CalendarFormat.month: 'Month',
             },
             onFormatChanged: (format) {
@@ -70,25 +103,36 @@ class _CalendarState extends State<Calendar> {
               });
             },
             headerStyle: const HeaderStyle(
-              formatButtonVisible: false,
-              titleCentered: true,
-           
-              headerPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-              titleTextStyle: TextStyle(color: Colors.black45, fontSize: 20)
-            ),
+                formatButtonVisible: false,
+                titleCentered: true,
+                headerPadding:
+                  EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                titleTextStyle: TextStyle(color: Colors.black45, fontSize: 20)),
 
             selectedDayPredicate: (day) {
               return isSameDay(_selectedDay, day);
             },
+
             onDaySelected: (selectedDay, focusedDay) {
               setState(() {
                 _selectedDay = selectedDay;
                 _focusedDay = focusedDay;
               });
+              getEventForDay(selectedDay);
             },
+
             onPageChanged: (focusedDay) {
               _focusedDay = focusedDay;
             },
+
+            eventLoader: getEventForDay,
+          ),
+          ListView(
+            shrinkWrap: true,
+            children: getEventForDay(_selectedDay!).map(
+            (e) => ListTile(
+              title: Text(e.toString()),
+            )).toList(),
           )
         ],
       ),
