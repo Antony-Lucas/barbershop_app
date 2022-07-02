@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:barbershop_app/routes/admin/admin_schedule.dart';
-import 'package:barbershop_app/routes/admin/profile_admin.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:barbershop_app/routes/admin/admin_schedule.dart';
+import 'package:barbershop_app/routes/admin/profile_admin.dart';
+import 'package:barbershop_app/routes/admin/new_schedule.dart';
 
 class AdminHome extends StatefulWidget {
   const AdminHome({Key? key}) : super(key: key);
@@ -64,11 +65,13 @@ class _BodyDashState extends State<BodyDash> {
           children: <Widget>[
             Container(
                 alignment: Alignment.centerLeft,
-                padding:
-                    const EdgeInsets.only(top: 30, left: 20, bottom: 20),
+                padding: const EdgeInsets.only(top: 30, left: 20, bottom: 20),
                 child: const Text(
                   "Atividade",
-                  style: TextStyle(color: Color.fromARGB(222, 222, 222, 222), fontSize: 15, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Color.fromARGB(222, 222, 222, 222),
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
                 ))
           ],
         ),
@@ -258,8 +261,8 @@ class _CircularMenuState extends State<CircularMenu> {
                 height: 60,
                 child: IconButton(
                   icon: const Icon(Icons.groups_outlined,
-                    color: Color.fromARGB(222, 222, 222, 222)),
-                    onPressed: () {},
+                      color: Color.fromARGB(222, 222, 222, 222)),
+                  onPressed: () {},
                 ),
                 decoration: BoxDecoration(
                   color: const Color.fromRGBO(35, 36, 42, 1),
@@ -351,7 +354,8 @@ class _AddActionState extends State<AddAction> {
                   const EdgeInsets.symmetric(horizontal: 105, vertical: 15),
             ),
             onPressed: () {
-              print("kkkkkkkkkk");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const NewEvent()));
             },
             child: Row(
               children: const <Widget>[
@@ -383,13 +387,12 @@ class _CalendarState extends State<Calendar> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.only(top: 15, bottom: 20),
-            child: Column(
-              children: const <Widget>[
-                WeekDays(),
-              ],
-            )
-          ),
+              padding: const EdgeInsets.only(top: 15, bottom: 20),
+              child: Column(
+                children: const <Widget>[
+                  WeekDays(),
+                ],
+              )),
         ],
       ),
     );
@@ -427,38 +430,33 @@ class _WeekDaysState extends State<WeekDays> {
             lastDay: DateTime.utc(2030, 01, 01),
             calendarFormat: _calendarFormat,
             startingDayOfWeek: StartingDayOfWeek.monday,
-            availableCalendarFormats: const{
+            availableCalendarFormats: const {
               CalendarFormat.week: 'Week',
             },
-
             onFormatChanged: (format) {
               setState(() {
                 _calendarFormat = format;
               });
             },
-
             headerStyle: const HeaderStyle(
               formatButtonVisible: false,
               titleCentered: true,
               leftChevronVisible: false,
               rightChevronVisible: false,
             ),
-            headerVisible:  false,
-
+            headerVisible: false,
             calendarStyle: const CalendarStyle(
-              defaultTextStyle: TextStyle(color: Colors.white),
-              todayDecoration: BoxDecoration(
-                color: Color(0xFFD4BA53),
-                shape: BoxShape.circle,
-              ),
-              todayTextStyle: TextStyle(color: Colors.black),
-              selectedDecoration: BoxDecoration(
-                color: Color(0xFFDEC978),
-                shape: BoxShape.circle,
-              ),
-              selectedTextStyle: TextStyle(color: Colors.black)
-            ),
-
+                defaultTextStyle: TextStyle(color: Colors.white),
+                todayDecoration: BoxDecoration(
+                  color: Color(0xFFD4BA53),
+                  shape: BoxShape.circle,
+                ),
+                todayTextStyle: TextStyle(color: Colors.black),
+                selectedDecoration: BoxDecoration(
+                  color: Color(0xFFDEC978),
+                  shape: BoxShape.circle,
+                ),
+                selectedTextStyle: TextStyle(color: Colors.black)),
             selectedDayPredicate: (day) {
               return isSameDay(_selectedDay, day);
             },

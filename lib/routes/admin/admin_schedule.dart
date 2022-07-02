@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -53,16 +54,23 @@ class _CalendarState extends State<Calendar> {
     super.initState();
     _selectedDay = _focusedDay;
     _eventList = {
-      DateTime.now().subtract(const Duration(days: 2)): ['Isac daocu', 'Event B1'],
+      DateTime.now().subtract(const Duration(days: 2)): [
+        'Isac daocu',
+        'Event B1'
+      ],
       DateTime.now(): ['Event A2', 'Event B2', 'Event C1', 'Event D1'],
-      DateTime.now().add(const Duration(days: 1)):[
+      DateTime.now().add(const Duration(days: 1)): [
         'Event A2',
         'Event B2',
         'Event C2',
         'Event D2',
       ],
-      DateTime.now().add(const Duration(days: 3)) : (['Event A4', 'Event A5', 'Event B4',]).toList(),
-      DateTime.now().add(const Duration(days: 7)):[
+      DateTime.now().add(const Duration(days: 3)): ([
+        'Event A4',
+        'Event A5',
+        'Event B4',
+      ]).toList(),
+      DateTime.now().add(const Duration(days: 7)): [
         'Event A6',
         'Event B5',
         'Event C3',
@@ -77,7 +85,7 @@ class _CalendarState extends State<Calendar> {
       hashCode: getHashCode,
     )..addAll(_eventList);
 
-    List getEventForDay(DateTime day){
+    List getEventForDay(DateTime day) {
       return _events[day] ?? [];
     }
 
@@ -106,13 +114,11 @@ class _CalendarState extends State<Calendar> {
                 formatButtonVisible: false,
                 titleCentered: true,
                 headerPadding:
-                  EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                 titleTextStyle: TextStyle(color: Colors.black45, fontSize: 20)),
-
             selectedDayPredicate: (day) {
               return isSameDay(_selectedDay, day);
             },
-
             onDaySelected: (selectedDay, focusedDay) {
               setState(() {
                 _selectedDay = selectedDay;
@@ -120,19 +126,18 @@ class _CalendarState extends State<Calendar> {
               });
               getEventForDay(selectedDay);
             },
-
             onPageChanged: (focusedDay) {
               _focusedDay = focusedDay;
             },
-
             eventLoader: getEventForDay,
           ),
           ListView(
             shrinkWrap: true,
-            children: getEventForDay(_selectedDay!).map(
-            (e) => ListTile(
-              title: Text(e.toString()),
-            )).toList(),
+            children: getEventForDay(_selectedDay!)
+                .map((e) => ListTile(
+                      title: Text(e.toString()),
+                    ))
+                .toList(),
           )
         ],
       ),
