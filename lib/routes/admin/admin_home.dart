@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:barbershop_app/routes/admin/admin_schedule.dart';
-import 'package:barbershop_app/routes/admin/profile_admin.dart';
-import 'package:barbershop_app/routes/admin/new_schedule.dart';
+import 'package:barbershop_app/routes/admin/admin_profile.dart';
+import 'package:barbershop_app/routes/admin/admin_calendar.dart';
 
 class AdminHome extends StatefulWidget {
   const AdminHome({Key? key}) : super(key: key);
@@ -58,9 +55,8 @@ class BodyDash extends StatefulWidget {
 class _BodyDashState extends State<BodyDash> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF121212),
-      body: Column(children: <Widget>[
+    return SingleChildScrollView(
+      child: Column(children: <Widget>[
         Column(
           children: <Widget>[
             Container(
@@ -77,8 +73,7 @@ class _BodyDashState extends State<BodyDash> {
         ),
         const Resume(),
         const CircularMenu(),
-        const AddAction(),
-        const Calendar(),
+        const Showcalendar(),
       ]),
     );
   }
@@ -324,151 +319,6 @@ class _CircularMenuState extends State<CircularMenu> {
                     style: TextStyle(color: Color.fromARGB(222, 222, 222, 222)),
                   ))
             ],
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class AddAction extends StatefulWidget {
-  const AddAction({Key? key}) : super(key: key);
-
-  @override
-  State<AddAction> createState() => _AddActionState();
-}
-
-class _AddActionState extends State<AddAction> {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              primary: const Color(0xFFD4BA53),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 105, vertical: 15),
-            ),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const NewEvent()));
-            },
-            child: Row(
-              children: const <Widget>[
-                Icon(
-                  Icons.add,
-                ),
-                Text("Novo Agendamento")
-              ],
-            ))
-      ],
-    );
-  }
-}
-
-class Calendar extends StatefulWidget {
-  const Calendar({Key? key}) : super(key: key);
-
-  @override
-  State<Calendar> createState() => _CalendarState();
-}
-
-class _CalendarState extends State<Calendar> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 5),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-              padding: const EdgeInsets.only(top: 15, bottom: 20),
-              child: Column(
-                children: const <Widget>[
-                  WeekDays(),
-                ],
-              )),
-        ],
-      ),
-    );
-  }
-}
-
-class WeekDays extends StatefulWidget {
-  const WeekDays({Key? key}) : super(key: key);
-
-  @override
-  State<WeekDays> createState() => _WeekDaysState();
-}
-
-class _WeekDaysState extends State<WeekDays> {
-  Map<DateTime, List> _eventList = {};
-
-  int getHashCode(DateTime key) {
-    return key.day * 1000000 + key.month * 10000 + key.year;
-  }
-
-  DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
-  CalendarFormat _calendarFormat = CalendarFormat.week;
-  @override
-  Widget build(BuildContext context) {
-    initializeDateFormatting('pt');
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TableCalendar(
-            locale: 'pt_BR',
-            focusedDay: _focusedDay,
-            firstDay: DateTime.utc(2010, 01, 01),
-            lastDay: DateTime.utc(2030, 01, 01),
-            calendarFormat: _calendarFormat,
-            startingDayOfWeek: StartingDayOfWeek.monday,
-            availableCalendarFormats: const {
-              CalendarFormat.week: 'Week',
-            },
-            onFormatChanged: (format) {
-              setState(() {
-                _calendarFormat = format;
-              });
-            },
-            headerStyle: const HeaderStyle(
-              formatButtonVisible: false,
-              titleCentered: true,
-              leftChevronVisible: false,
-              rightChevronVisible: false,
-            ),
-            headerVisible: false,
-            calendarStyle: const CalendarStyle(
-                defaultTextStyle: TextStyle(color: Colors.white),
-                todayDecoration: BoxDecoration(
-                  color: Color(0xFFD4BA53),
-                  shape: BoxShape.circle,
-                ),
-                todayTextStyle: TextStyle(color: Colors.black),
-                selectedDecoration: BoxDecoration(
-                  color: Color(0xFFDEC978),
-                  shape: BoxShape.circle,
-                ),
-                selectedTextStyle: TextStyle(color: Colors.black)),
-            selectedDayPredicate: (day) {
-              return isSameDay(_selectedDay, day);
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              setState(() {
-                _selectedDay = selectedDay;
-                _focusedDay = focusedDay;
-              });
-            },
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
-            },
           )
         ],
       ),

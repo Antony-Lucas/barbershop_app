@@ -15,7 +15,7 @@ class Login extends StatelessWidget {
       title: 'login page',
       debugShowCheckedModeBanner: false,
       home: const Wellcome(),
-      darkTheme: ThemeData.dark(),
+      darkTheme: ThemeData.light(),
       theme: ThemeData(
         primarySwatch: generateMaterialColor(Palette.primary),
       ),
