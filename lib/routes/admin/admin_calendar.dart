@@ -1,7 +1,7 @@
-import 'package:barbershop_app/routes/admin/admin_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:barbershop_app/widgets/default_textfield.dart';
 import 'package:barbershop_app/widgets/colorPallete.dart';
 
 class Showcalendar extends StatefulWidget {
@@ -71,65 +71,62 @@ class _WeekDaysState extends State<WeekDays> {
     return mySelectedEvents[datetime] ?? [];
   }
 
-  _showAddEvents() async{
+  _showAddEvents() async {
     await showDialog(
-      context: context, 
-      builder: (context) => AlertDialog(
-        title: const Text("Novo agendamento"),
-          content: Column(
-            children: [
-              buildTextField(controller: nameController, hint: "Nome do cliente"),
-              buildTextField(controller: tellController, hint: "Contato"),
-              const SizedBox(height: 20.0),
-            ]
-          ),
-          actions:[
-            TextButton(
-              onPressed: () => Navigator.pop(context), 
-              child: const Text("Cancelar"),
-            ),
-            TextButton(
-              onPressed: (){
-                if(nameController.text.isEmpty && 
-                  tellController.text.isEmpty)
-                {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Por favor, preencha os campos obrigatórios"),
-                      duration: Duration(seconds: 3),
-                    )
-                  );return;
-                }else{
-                  setState(() {
-                    if(mySelectedEvents[_selectedDay] != null){
-                      mySelectedEvents[_selectedDay]?.add(ClientEvents(
-                          clientName: nameController.text,
-                          clientTell: tellController.text,
-                        )
-                      );
-                    }else{
-                      mySelectedEvents[_selectedDay!] = [
-                        ClientEvents(
-                          clientName: nameController.text, 
-                          clientTell: tellController.text,
-                        )
-                      ];
-                    }
-                  });
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text("Novo agendamento"),
+              content: Column(children: [
+                buildTextField(
+                    controller: nameController, hint: "Nome do cliente"),
+                buildTextField(controller: tellController, hint: "Contato"),
+                const SizedBox(height: 20.0),
+              ]),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text("Cancelar"),
+                ),
+                TextButton(
+                    onPressed: () {
+                      if (nameController.text.isEmpty &&
+                          tellController.text.isEmpty) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text(
+                              "Por favor, preencha os campos obrigatórios"),
+                          duration: Duration(seconds: 3),
+                        ));
+                        return;
+                      } else {
+                        setState(() {
+                          if (mySelectedEvents[_selectedDay] != null) {
+                            mySelectedEvents[_selectedDay]?.add(ClientEvents(
+                              clientName: nameController.text,
+                              clientTell: tellController.text,
+                            ));
+                          } else {
+                            mySelectedEvents[_selectedDay!] = [
+                              ClientEvents(
+                                clientName: nameController.text,
+                                clientTell: tellController.text,
+                              )
+                            ];
+                          }
+                        });
 
-                  nameController.clear();
-                  tellController.clear();
+                        nameController.clear();
+                        tellController.clear();
 
-                  Navigator.pop(context);
-                  return;
-                }
-              }, 
-              child: const Text("Novo agendamento")
-            )
-          ],
-        )
-      );
+                        Navigator.pop(context);
+                        return;
+                      }
+                    },
+                    child: const Text("Novo agendamento"))
+              ],
+            ));
   }
+
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('pt');
@@ -140,38 +137,39 @@ class _WeekDaysState extends State<WeekDays> {
             Padding(
               padding: const EdgeInsets.only(bottom: 40.0),
               child: ElevatedButton(
-                onPressed: () => _showAddEvents(), 
+                onPressed: () => _showAddEvents(),
                 child: const Text("Novo agendamento"),
               ),
             ),
             SingleChildScrollView(
               child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                TableCalendar(
-                  locale: 'pt_BR',
-                  focusedDay: _focusedDay,
-                  firstDay: DateTime.utc(2000, 01, 01),
-                  lastDay: DateTime.utc(2050, 01, 01),
-                  calendarFormat: _calendarFormat,
-                  startingDayOfWeek: StartingDayOfWeek.monday,
-                  availableCalendarFormats: const {
-                    CalendarFormat.week: 'Week',
-                  },
-                  onFormatChanged: (format) {
-                    setState(() {
-                      _calendarFormat = format;
-                    });
-                  },
-                  headerStyle: const HeaderStyle(
-                    headerPadding:EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                    formatButtonVisible: false,
-                    titleCentered: true,
-                    leftChevronVisible: false,
-                    rightChevronVisible: false,
-                  ),
-                  headerVisible: false,
-                  calendarStyle: const CalendarStyle(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  TableCalendar(
+                    locale: 'pt_BR',
+                    focusedDay: _focusedDay,
+                    firstDay: DateTime.utc(2000, 01, 01),
+                    lastDay: DateTime.utc(2050, 01, 01),
+                    calendarFormat: _calendarFormat,
+                    startingDayOfWeek: StartingDayOfWeek.monday,
+                    availableCalendarFormats: const {
+                      CalendarFormat.week: 'Week',
+                    },
+                    onFormatChanged: (format) {
+                      setState(() {
+                        _calendarFormat = format;
+                      });
+                    },
+                    headerStyle: const HeaderStyle(
+                      headerPadding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                      formatButtonVisible: false,
+                      titleCentered: true,
+                      leftChevronVisible: false,
+                      rightChevronVisible: false,
+                    ),
+                    headerVisible: false,
+                    calendarStyle: const CalendarStyle(
                       defaultTextStyle: TextStyle(color: Colors.black38),
                       todayDecoration: BoxDecoration(
                         color: Color(0xFFD4BA53),
@@ -183,65 +181,44 @@ class _WeekDaysState extends State<WeekDays> {
                         shape: BoxShape.circle,
                       ),
                       selectedTextStyle: TextStyle(color: Colors.black),
-                      markerDecoration: BoxDecoration(
-                        color: Colors.transparent,
-                      ),
-                  ),
-                  selectedDayPredicate: (day) {
-                    return isSameDay(_selectedDay, day);
-                  },
-                  onDaySelected: (selectedDay, focusedDay) {
-                    setState(() {
-                      _selectedDay = selectedDay;
-                      _focusedDay = focusedDay;
-                    });
-                  },
-                  onPageChanged: (focusedDay) {
-                    _focusedDay = focusedDay;
-                  },
-                  eventLoader: _listOfDay,
-                ),
-                ..._listOfDay(_selectedDay!).map((clientEvents) => ListTile(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                  trailing: IconButton(
-                    onPressed: (){}, 
-                    icon: const Icon(
-                      Icons.notifications,
                     ),
+                    selectedDayPredicate: (day) {
+                      return isSameDay(_selectedDay, day);
+                    },
+                    onDaySelected: (selectedDay, focusedDay) {
+                      setState(() {
+                        _selectedDay = selectedDay;
+                        _focusedDay = focusedDay;
+                      });
+                    },
+                    onPageChanged: (focusedDay) {
+                      _focusedDay = focusedDay;
+                    },
+                    eventLoader: _listOfDay,
                   ),
-                  title: Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Text("Nome: ${clientEvents.clientName}"), 
-                  ),
-                  subtitle: Text("Contato: ${clientEvents.clientTell}"),
-                )
-              )
-            ],
-          ),
-        ),
+                  ..._listOfDay(_selectedDay!).map((clientEvents) => ListTile(
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 15.0, vertical: 5.0),
+                        trailing: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.notifications,
+                          ),
+                        ),
+                        title: Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Text("Nome: ${clientEvents.clientName}"),
+                        ),
+                        subtitle: Text("Contato: ${clientEvents.clientTell}"),
+                      ))
+                ],
+              ),
+            ),
           ],
         ),
       ],
     );
   }
-}
-
-Widget buildTextField(
-    {String? hint, required TextEditingController controller}) {
-  return TextField(
-    controller: controller,
-    textCapitalization: TextCapitalization.words,
-    decoration: InputDecoration(
-      labelText: hint ?? '',
-      focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.black38),
-        borderRadius: BorderRadius.circular(10.0)),
-      enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.babyPowder),
-        borderRadius: BorderRadius.circular(10.0)
-      )
-    ),
-  );
 }
 
 class ClientEvents {

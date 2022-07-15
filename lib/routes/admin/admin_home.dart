@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:barbershop_app/routes/admin/admin_schedule.dart';
 import 'package:barbershop_app/routes/admin/admin_profile.dart';
 import 'package:barbershop_app/routes/admin/admin_calendar.dart';
+import 'package:barbershop_app/routes/admin/admin_services.dart';
 
 class AdminHome extends StatefulWidget {
   const AdminHome({Key? key}) : super(key: key);
@@ -281,7 +282,11 @@ class _CircularMenuState extends State<CircularMenu> {
                 child: IconButton(
                   icon: const Icon(Icons.cut,
                       color: Color.fromARGB(222, 222, 222, 222)),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, 
+                      MaterialPageRoute(builder: (context) => const Services())
+                    );
+                  },
                 ),
                 decoration: BoxDecoration(
                     color: const Color.fromRGBO(35, 36, 42, 1),
