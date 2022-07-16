@@ -172,12 +172,12 @@ class _WeekDaysState extends State<WeekDays> {
                     calendarStyle: const CalendarStyle(
                       defaultTextStyle: TextStyle(color: Colors.black38),
                       todayDecoration: BoxDecoration(
-                        color: Color(0xFFD4BA53),
+                        color: AppColors.singedYellow,
                         shape: BoxShape.circle,
                       ),
                       todayTextStyle: TextStyle(color: Colors.black),
                       selectedDecoration: BoxDecoration(
-                        color: Color(0xFFDEC978),
+                        color: AppColors.yellowBellow,
                         shape: BoxShape.circle,
                       ),
                       selectedTextStyle: TextStyle(color: Colors.black),

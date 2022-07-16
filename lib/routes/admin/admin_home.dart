@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:barbershop_app/widgets/colorPallete.dart';
 import 'package:barbershop_app/routes/admin/admin_schedule.dart';
 import 'package:barbershop_app/routes/admin/admin_profile.dart';
 import 'package:barbershop_app/routes/admin/admin_calendar.dart';
@@ -16,29 +17,20 @@ class _AdminHome extends State<AdminHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          icon: const Icon(
-            Icons.person,
-            color: Color.fromARGB(222, 222, 222, 222),
-            size: 35,
-          ),
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const Profile()));
-          },
-        ),
         actions: <Widget>[
           IconButton(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              icon: const Icon(
-                Icons.notifications_outlined,
-                color: Color.fromARGB(222, 222, 222, 222),
-                size: 30,
-              ),
-              onPressed: () {}),
+            icon: const Icon(
+              Icons.more_vert,
+              color: AppColors.antiIcon,
+              size: 35,
+            ),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Profile()));
+            },    
+          ),
         ],
-        backgroundColor: const Color(0xFF121212),
+        backgroundColor: AppColors.primarywhite,
         elevation: 0,
       ),
       body: const BodyDash(),
@@ -62,11 +54,11 @@ class _BodyDashState extends State<BodyDash> {
           children: <Widget>[
             Container(
                 alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.only(top: 30, left: 20, bottom: 20),
+                padding: const EdgeInsets.only(top: 20, left: 20, bottom: 15),
                 child: const Text(
                   "Atividade",
                   style: TextStyle(
-                      color: Color.fromARGB(222, 222, 222, 222),
+                      color: AppColors.fontAwesome,
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ))
@@ -222,7 +214,7 @@ class _CircularMenuState extends State<CircularMenu> {
                   padding: EdgeInsets.only(top: 8),
                   child: Text(
                     "Agenda",
-                    style: TextStyle(color: Color.fromARGB(222, 222, 222, 222)),
+                    style: TextStyle(color: AppColors.secondaryCofee),
                   ))
             ],
           ),
@@ -245,7 +237,7 @@ class _CircularMenuState extends State<CircularMenu> {
                   padding: EdgeInsets.only(top: 8, left: 12),
                   child: Text(
                     "Receita",
-                    style: TextStyle(color: Color.fromARGB(222, 222, 222, 222)),
+                    style: TextStyle(color: AppColors.secondaryCofee),
                   ))
             ],
           ),
@@ -269,7 +261,7 @@ class _CircularMenuState extends State<CircularMenu> {
                   padding: EdgeInsets.only(top: 8, left: 12),
                   child: Text(
                     "Equipe",
-                    style: TextStyle(color: Color.fromARGB(222, 222, 222, 222)),
+                    style: TextStyle(color: AppColors.secondaryCofee),
                   ))
             ],
           ),
@@ -283,9 +275,10 @@ class _CircularMenuState extends State<CircularMenu> {
                   icon: const Icon(Icons.cut,
                       color: Color.fromARGB(222, 222, 222, 222)),
                   onPressed: () {
-                    Navigator.push(context, 
-                      MaterialPageRoute(builder: (context) => const Services())
-                    );
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Services()));
                   },
                 ),
                 decoration: BoxDecoration(
@@ -296,7 +289,7 @@ class _CircularMenuState extends State<CircularMenu> {
                   padding: EdgeInsets.only(top: 8, left: 12),
                   child: Text(
                     "Serviços",
-                    style: TextStyle(color: Color.fromARGB(222, 222, 222, 222)),
+                    style: TextStyle(color: AppColors.secondaryCofee),
                   ))
             ],
           ),
@@ -321,7 +314,7 @@ class _CircularMenuState extends State<CircularMenu> {
                   padding: EdgeInsets.only(top: 8, left: 12),
                   child: Text(
                     "Produtos",
-                    style: TextStyle(color: Color.fromARGB(222, 222, 222, 222)),
+                    style: TextStyle(color: AppColors.secondaryCofee),
                   ))
             ],
           )
